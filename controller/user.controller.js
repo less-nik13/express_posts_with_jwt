@@ -1,22 +1,19 @@
-const User = require('../models/user.entity')
+const bcrypt = require('bcrypt');
+const User = require('../models/user.entity');
 
 class UserController {
-    async createUser(req, res) {
-        const {email, password} = req.body;
-        const newUser = await User.create({email, password});
-        return res.json(newUser);
-    }
 
     async getUsers(req, res) {
-
+        const users = await User.findAll()
+        return res.json(users);
     }
 
     async getUserByEmail(req, res) {
-
+        const user = await User.findOne({ email: email})
     }
 
     async getUserById(req, res) {
-
+        const user = await User.findOne({ id: id})
     }
 }
 
