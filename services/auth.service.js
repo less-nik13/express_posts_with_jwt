@@ -1,5 +1,6 @@
 const User = require('../models/user.entity')
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
 
 class AuthService {
     async createUser(body, res) {
@@ -25,7 +26,8 @@ class AuthService {
             if(!comparePassword) {
                 return res.status(400).json({message: `Password is wrong`})
             }
-            return res.status(200).json({message: `User ${user.id}`})
+            const token = jwt.sign({id: user.id}, process.env.JWT_SECRET);
+            return res.status(200).json({message: `User ${user.id} has token ${token}`})
         }
     }
 }
