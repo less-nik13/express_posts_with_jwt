@@ -1,13 +1,14 @@
 require('dotenv').config();
 const express = require('express');
-const sequelize = require('./dbConfig')
-const passport = require('passport')
+const sequelize = require('./dbConfig');
+const passport = require('passport');
 
-const userRoute = require('./routes/user.router')
-const authRoute = require('./routes/auth.router')
-const postRoute = require('./routes/post.router')
-require('./services/passport.local')
-require('./services/passport.jwt')
+const models = require('./models/models.export');
+const userRoute = require('./routes/user.router');
+const authRoute = require('./routes/auth.router');
+const postRoute = require('./routes/post.router');
+require('./services/passport.local');
+require('./services/passport.jwt');
 
 const app = express();
 
