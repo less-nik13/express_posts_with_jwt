@@ -7,13 +7,13 @@ class UserController {
         return res.json(users);
     }
 
-    async getUserByEmail(req, res) {
-        const user = await User.findOne({ email: email})
-    }
-
-    async getUserById(req, res) {
-        const user = await User.findOne({ id: id})
-    }
+    // async getUserByEmail(req, res) {
+    //     const user = await User.findOne({ email })
+    // }
+    //
+    // async getUserById(req, res) {
+    //     const user = await User.findOne({ id })
+    // }
 }
 
 module.exports = new UserController();

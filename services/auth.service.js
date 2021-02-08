@@ -16,21 +16,27 @@ class AuthService {
         }
     }
 
-    async loginUser(req, res) {
-        const {email, password} = req.body;
-        const user = await User.findOne({ where: {email}})
-        if(email !== user.email) {
-            return res.status(400).json({message: `User with this email is not exists`})
-        } else {
-            const comparePassword = await bcrypt.compare(password, user.password);
-            if(!comparePassword) {
-                return res.status(400).json({message: `Password is wrong`})
-            }
-            const token = jwt.sign({id: user.id}, process.env.JWT_SECRET);
-            return res.status(200).json({message: `User ${user.id} has token ${token}`})
-        }
+    // async loginUser(req, res) {
+    //     const {email, password} = req.body;
+    //     const user = await User.findOne({ where: {email}})
+    //     if(email !== user.email) {
+    //         return res.status(400).json({message: `User with this email is not exists`})
+    //     } else {
+    //         const comparePassword = await bcrypt.compare(password, user.password);
+    //         if(!comparePassword) {
+    //             return res.status(400).json({message: `Password is wrong`})
+    //         }
+    //         const token = jwt.sign({id: user.id}, process.env.JWT_SECRET);
+    //         return res.status(200).json({message: `User ${user.id} has token ${token}`})
+    //     }
+    // }
+
+    async loginPassport(req, res) {
+        const {id, email} = req.user.dataValues;
+        const user = {id, email};
+        const token = jwt.sign(user, process.env.JWT_SECRET);
+        res.header('Authorization', token).send(token);
     }
 }
-
 
 module.exports = new AuthService();
